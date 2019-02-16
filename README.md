@@ -26,7 +26,7 @@ Build an image using Ruby 2.6 & Node 11:
 
 #### Run `ruby`
 
-    docker run -it my:tag ruby
+    docker run -it my:tag irb
 
 #### Run `node`
 
