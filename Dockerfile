@@ -18,4 +18,4 @@ RUN ln -sf /usr/local/bin/node /usr/local/bin/nodejs \
 
 RUN apk add --no-cache bash
 
-CMD ['bash']
+CMD ["bash"]
