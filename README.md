@@ -1,118 +1,94 @@
-# Ruby + Node Docker Image [![Image Layers](https://images.microbadger.com/badges/image/starefossen/ruby-node:alpine.svg)](https://microbadger.com/#/images/starefossen/ruby-node:alpine)
+# Ruby + Node Docker Image
 
-Docker image with Ruby and Node.js with Yarn installed and ready to roll.
+Docker multistage image with Ruby and Node.js.
 
-NOTICE: Images are refreshed everytime Ruby official repository is updated on Docker Hub. Minor or patch versions in this readme file should be outdated.
+This image uses the Ruby and Node.js official images with Ruby as the base repository.
 
-Both Ruby and Node.js are based on official images. Ruby is used as base repository.
+Any supported version of Ruby or Node can be installed by passing a `--build-arg`
+for `RUBY_VERSION` &/or `NODE_VERSION`.
 
-Maintained combinations:
+- [Docker Ruby](https://hub.docker.com/_/ruby/)
+- [Docker Node](https://hub.docker.com/_/node/)
 
-- Ruby: 2 (2.6) Node: 6.x (6.16)
-- Ruby: 2 (2.6) Node: 8.x (8.15)
-- Ruby: 2 (2.6) Node: 10.x (10.15)
-
-## Supported tags and respective `Dockerfile` links
-
-- [`latest`, `2-10` (2-10/Dockerfile)](https://github.com/Starefossen/docker-ruby-node/blob/master/2-10/stretch/Dockerfile) [![Image Layers](https://images.microbadger.com/badges/image/starefossen/ruby-node:2-10.svg)](https://microbadger.com/#/images/starefossen/ruby-node:2-10)
-- [`slim`, `2-10-slim` (2-10/stretch-slim/Dockerfile)](https://github.com/Starefossen/docker-ruby-node/blob/master/2-10/stretch-slim/Dockerfile) [![Image Layers](https://images.microbadger.com/badges/image/starefossen/ruby-node:2-10-slim.svg)](https://microbadger.com/#/images/starefossen/ruby-node:slim)
-- [`alpine`, `2-10-alpine` (2-10/alpine/Dockerfile)](https://github.com/Starefossen/docker-ruby-node/blob/master/2-10/alpine/Dockerfile) [![Image Layers](https://images.microbadger.com/badges/image/starefossen/ruby-node:2-10-alpine.svg)](https://microbadger.com/#/images/starefossen/ruby-node:2-10-alpine)
-- [`2-8` (2-8/Dockerfile)](https://github.com/Starefossen/docker-ruby-node/blob/master/2-8/stretch/Dockerfile) [![Image Layers](https://images.microbadger.com/badges/image/starefossen/ruby-node:2-8.svg)](https://microbadger.com/#/images/starefossen/ruby-node:2-8)
-- [`2-8-slim`, `2-8` (2-8/stretch-slim/Dockerfile)](https://github.com/Starefossen/docker-ruby-node/blob/master/2-8/stretch-slim/Dockerfile) [![Image Layers](https://images.microbadger.com/badges/image/starefossen/ruby-node:2-8-slim.svg)](https://microbadger.com/#/images/starefossen/ruby-node:2-8-slim)
-- [`2-8-alpine` (2-8/alpine/Dockerfile)](https://github.com/Starefossen/docker-ruby-node/blob/master/2-8/alpine/Dockerfile) [![Image Layers](https://images.microbadger.com/badges/image/starefossen/ruby-node:2-8-alpine.svg)](https://microbadger.com/#/images/starefossen/ruby-node:2-8-alpine)
-- [`2-6` (2-6/Dockerfile)](https://github.com/Starefossen/docker-ruby-node/blob/master/2-6/stretch/Dockerfile) [![Image Layers](https://images.microbadger.com/badges/image/starefossen/ruby-node:2-6.svg)](https://microbadger.com/#/images/starefossen/ruby-node:2-6)
-- [`2-6-slim` (2-6/stretch-slim/Dockerfile)](https://github.com/Starefossen/docker-ruby-node/blob/master/2-6/stretch-slim/Dockerfile) [![Image Layers](https://images.microbadger.com/badges/image/starefossen/ruby-node:2-6-slim.svg)](https://microbadger.com/#/images/starefossen/ruby-node:2-6-slim)
-- [`2-6-alpine` (2-6/alpine/Dockerfile)](https://github.com/Starefossen/docker-ruby-node/blob/master/2-6/alpine/Dockerfile) [![Image Layers](https://images.microbadger.com/badges/image/starefossen/ruby-node:2-6-alpine.svg)](https://microbadger.com/#/images/starefossen/ruby-node:2-6-alpine)
-
-## Why Node.js and Ruby together?
-
-Some applications, like Jekyll, GitHub pages or Rails with Webpacker, requires both Ruby and Node.js
-installed in the same image in order to run or fully function. This image do not install any other packages than both other images do.
+If no `--build-arg` is passed then each variant will default to `alpine` or `stretch`.
 
 ## Differences with official Ruby and Node.js images?
 
 Ruby: Same as official.
 
-Node: Instead variables NODE_VERSION and YARN_VERSION is available variable NODE_MAJOR fullfiled with major version of node.js. Node is not executed on by CMD.
-
-## How to use this image
+Node: Same as official except the `NODE_MAJOR` & `NODE_VERSION` env vars are not
+set. If required just set them in your Dockerfile.
 
 ```
-$ docker run -v "$PWD":/usr/src/app -p "8080:8080" starefossen/ruby-node
+ENV NODE_MAJOR 10
+ENV NODE_VERSION 10.15.1
 ```
+
+Since Ruby is the base image `irb` is the default CMD.
 
 ## Image Variants
 
-The `starefossen/ruby-node` images come in three flavors, each designed for a
-specific use case.
+The `red-amt/ruby-node` images come in two flavours.
 
-`starefossen/ruby-node:latest`
+`red-ant/ruby-node:stretch`
 
 This is the defacto image. If you are unsure about what your needs are, you
-probably want to use this one. It is designed to be used both as a throw away container (mount your source code and start the container to start your app), as well as the base to build other images off of.
-Based on Debian distribution.
+probably want to use this one. It is designed to be used both as a throw away
+container (mount your source code and start the container to start your app), as
+well as the base to build other images off of. Based on Debian distribution.
 
-`starefossen/ruby-node:slim`
-
-Reduced version of `latest` image.
-
-`starefossen/ruby-node:alpine`
+`red-ant/ruby-node:alpine`
 
 This is the smallest image possible. It is based on the Alpine Linux base image.
 
 ## Default Locale
 
-Versions 2-6, 2-8, 2-10 has defined locale C.UTF-8 instead default POSIX.
-
-## License
-
-This Docker image is licensed under the [MIT License](https://github.com/Starefossen/docker-ruby-node/blob/master/LICENSE).
-
-Software contained in this image is licensed under the following:
-
-- Ruby: [GPLv2](https://github.com/ruby/ruby/blob/trunk/GPL)
-- Node.js: [MIT License](https://github.com/nodejs/node/blob/master/LICENSE)
+The default locale is set to C.UTF-8 instead default POSIX.
 
 ## Supported Docker versions
 
-This image is officially supported on Docker versions v17, v18.
+Since this image supports multistage and ARG before FROM it only supports Docker
+versions >17.05.
 
-Support for older versions (down to v1.0) is provided on a best-effort basis.
+## Example Dockerfile
 
-## User Feedback
+A Dockerfile to build a rails app with webpacker, postgres and some gems loaded
+via a git url would look like:
+
+```
+FROM red-ant/ruby-node:alpine
+
+RUN apk add --no-cache --virtual .build-deps \
+  build-base \
+  git \
+  postgresql-dev
+
+WORKDIR /app
+
+COPY Gemfile* ./
+RUN bundle install
+
+COPY package.json yarn.lock ./
+RUN yarn install
+
+COPY . ./
+RUN bundle exec rake assets:precompile
+RUN apk del .build-deps
+
+EXPOSE 3000
+```
+
+And the build command if you wanted to pin to specific versions would be:
+
+```
+docker build -t redant:alpine-2-10 . \
+  --build-arg RUBY_VERSION=2.5.1
+  --build-arg NODE_VERSION=10.15.0
+```
+
 
 ### Documentation
 
 - [Docker](http://docs.docker.com)
 - [Ruby](https://www.ruby-lang.org/en/)
 - [Node.js](https://nodejs.org/en/)
-
-### Issues
-
-If you have any problems with or questions about this image, please contact us
-through a [GitHub issue](https://github.com/Starefossen/docker-ruby-node/issues).
-
-### Contributing
-
-You are invited to contribute new features, fixes, or updates, large or small;
-we are always thrilled to receive pull requests, and do our best to process them
-as fast as we can.
-
-Before you start to code, we recommend discussing your plans through a [GitHub
-issue](https://github.com/Starefossen/docker-ruby-node/issues), especially for
-more ambitious contributions. This gives other contributors a chance to point
-you in the right direction, give you feedback on your design, and help you find
-out if someone else is working on the same thing.
-
-### Collaborators
-
-Individuals making significant and valuable contributions are made Collaborators
-and given commit-access to the project. These individuals are identified by the
-existing Collaborators and their addition as Collaborators is discussed as a
-pull request to this project's README.md.
-
-Note: If you make a significant contribution and are not considered for
-commit-access log an issue or contact one of the Collaborators directly.
-
-- Radovan Šmitala - @radeno
-- Hans Kristian Flaatten - @Starefossen
