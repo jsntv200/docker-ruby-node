@@ -8,7 +8,8 @@ for `RUBY_VERSION` &/or `NODE_VERSION`.
 - [Docker Ruby](https://hub.docker.com/_/ruby/)
 - [Docker Node](https://hub.docker.com/_/node/)
 
-If no `--build-arg` is passed then each variant will default to `alpine` or `latest`.
+If no `--build-arg` is passed then each variant will default to `alpine` or `latest`
+for the debian buid.
 
 ## Differences with official Ruby and Node.js images?
 
@@ -28,7 +29,7 @@ Ruby is the base image so `irb` is the default CMD.
 
 The `red-amt/ruby-node` images come in two flavours.
 
-`red-ant/ruby-node:latest`
+`red-ant/ruby-node:debian`
 
 Based on the Debian distribution it will work with any of the Debian based tags.
 
