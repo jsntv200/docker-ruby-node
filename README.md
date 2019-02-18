@@ -1,6 +1,6 @@
-# Ruby + Node Docker Image
+# Multistage Ruby + Node
 
-Docker multistage image using official docker Ruby and Node.js.
+A multistage build using the official Ruby and Node.js docker images.
 
 Any supported version of Ruby or Node can be installed by passing a `--build-arg`
 for `RUBY_VERSION` &/or `NODE_VERSION`.
@@ -48,8 +48,8 @@ Docker versions `>= 17.05`.
 
 ## Example Dockerfile
 
-A Dockerfile to build a rails app with support for webpacker, postgres and gems
-loaded via a git url would look like:
+A Dockerfile to build a rails app with support for postgres and gems loaded via
+a git url with Alpine as the base:
 
 ```
 FROM red-ant/ruby-node:alpine
@@ -74,7 +74,7 @@ RUN apk del .build-deps
 EXPOSE 3000
 ```
 
-Build the image :
+Build the image using latest versions :
 
 ```
 docker build -t app:alpine .
