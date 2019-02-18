@@ -1,11 +1,11 @@
 version: '3'
 services:
-  rubynodestretch:
-    build: stretch/.
-    image: ruby-node:stretch
+  ruby-node-latest:
+    build: latest/.
+    image: ruby-node:latest
     command: ls -la /usr/local/bin
 
-  rubynodealpine:
+  ruby-node-alpine:
     build: alpine/.
     image: ruby-node:alpine
     command: ls -la /usr/local/bin
